@@ -6,11 +6,18 @@ function App() {
   const [quote, setQuote] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = async (event) => {
-    setIsLoading(true)
-    // TODO
-    setIsLoading(false)
+const handleClick = async (event) => {
+  setIsLoading(true);
+  try {
+    const response = await fetch('https://meowfacts.herokuapp.com/');
+    const data = await response.json();
+    const { data: fact } = data;
+    setQuote(fact);
+  } catch (error) {
+    console.error('Error fetching meowfact:', error);
   }
+  setIsLoading(false);
+};
 
   return (
     <Container>
